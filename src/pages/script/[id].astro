@@ -10,11 +10,11 @@ import getActiondump from "../../api/Actiondump";
 
 import Editor from "../../components/Editor/editor.svelte"
 
+const scriptId = Astro.params.id as string
 const userData = await getUserCheck(Astro);
-
-const script = await getScript(Astro,"2");
-
+const script = await getScript(Astro, scriptId);
 const actiondump = await getActiondump(Astro);
+
 ---
 
 <Layout title="Script Editor" user={userData}>
