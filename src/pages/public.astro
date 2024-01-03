@@ -1,0 +1,87 @@
+---
+import API from '../api/API';
+import getPublic from '../api/Public';
+import getScript from '../api/Script';
+import { getUserCheck } from '../api/User';
+import Navbar from '../components/Layout/Navbar.astro';
+import NavbarDivide from '../components/Layout/NavbarDivide.astro';
+import NavbarMain from '../components/Layout/NavbarMain.astro';
+import NavbarMainDivide from '../components/Layout/NavbarMainDivide.astro';
+import NavbarSection from '../components/Layout/NavbarSection.astro';
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+
+// Login and Fetch Info Code
+const userData = await getUserCheck(Astro);
+const publicScripts = await getPublic(Astro);
+
+// Redirect if no permission
+if (API.didError(userData)) {
+    return Astro.redirect("/403/")
+}
+
+---
+
+<DashboardLayout user={userData} title="Public Scripts">
+    <Navbar>
+        <NavbarMain>Dashboard</NavbarMain>
+        <NavbarMainDivide></NavbarMainDivide>
+        <NavbarSection ref="/"><i class="fa-solid fa-house"></i></NavbarSection>
+        <NavbarDivide></NavbarDivide>
+        <NavbarSection ref="/public/">Public Scripts</NavbarSection>
+    </Navbar>
+	
+    <div class="flex flex-wrap m-6 flex-grow flex-row grid place-content-start grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 items-stretch">
+        {publicScripts.scripts.map(script => {
+            return (
+                <button data-modal-target={`script-${script.id}-modal`} data-modal-toggle={`script-${script.id}-modal`} class={`flex rounded bg-zinc-800 rounded overflow-hidden shadow-lg unhighlightable`}>
+                    <div class={`flex-none m-3 rounded-full w-10 h-10`}>
+                        <img src="https://dfonline.dev/public/images/DIAMOND.png" class={`p-1 py-0.5 text-zinc-200`}>
+                    </div>
+
+                    <div class="flex-initial text-left">
+                        <p class="font-bold text-xs mt-4 text-zinc-200">{script.name}</p>
+                        <p class="text-xs mt-[-3px] text-zinc-200">{script.description}</p>
+                    </div>
+                </button>
+
+                <div id={`script-${script.id}-modal`} tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    <div class="relative w-full max-w-md max-h-full">
+                        <div class="relative rounded-lg shadow bg-zinc-700">
+                            <div class="px-6 py-6 lg:px-8">
+                                <p class="mb-4 text-xl font-medium text-zinc-300">{script.self ? "" : (script.installed ? "Uninstall " : "Install ")}{script.name}</p>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="col-span-2">
+                                        <p class="font-bold text-xs mb-1 text-zinc-400 uppercase">Description</p>
+                                        <p class="text-xs text-zinc-300">{script.description}</p>
+                                    </div>
+
+                                    <div>
+                                        <p class="font-bold text-xs mb-1 text-zinc-400 uppercase">Owner</p>
+                                        <p class="text-xs text-zinc-300">{script.owner_username}</p>
+                                    </div>
+
+                                    <div>
+                                        <p class="font-bold text-xs mb-1 text-zinc-400 uppercase">Approver</p>
+                                        <p class="text-xs text-zinc-300">{script.approvedBy_username}</p>
+                                    </div>
+
+                                    <div>
+                                        <p class="font-bold text-xs mb-1 text-zinc-400 uppercase">Version</p>
+                                        <p class="text-xs text-zinc-300">{script.version}</p>
+                                    </div>
+                                </div>
+
+                                {script.self ? "" : (script.installed ? 
+                                    <button class="mt-5 w-full text-white focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors bg-red-600 hover:bg-red-700">Uninstall Script</button>
+                                    : 
+                                    <button class="mt-5 w-full text-white focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors bg-blue-600 hover:bg-blue-700">Install Script</button>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            )
+        })}
+    </div>
+</DashboardLayout>

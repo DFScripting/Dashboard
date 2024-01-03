@@ -13,12 +13,10 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
 const userData = await getUserCheck(Astro);
 
 // Redirect if no permission
-if (API.didError(userData) || (userData.admin < 1 && userData.dev < 1 && userData.mod < 1 && userData.builder < 1)) {
+if (API.didError(userData)) {
     return Astro.redirect("/403/")
 }
 
-const script = await getScript(Astro, "1")
-console.log(script)
 ---
 
 <DashboardLayout user={userData} title="My Scripts">
