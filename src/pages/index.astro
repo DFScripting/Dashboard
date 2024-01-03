@@ -1,5 +1,6 @@
 ---
 import API from '../api/API';
+import getScript from '../api/Script';
 import { getUserCheck } from '../api/User';
 import Navbar from '../components/Layout/Navbar.astro';
 import NavbarDivide from '../components/Layout/NavbarDivide.astro';
@@ -16,6 +17,8 @@ if (API.didError(userData) || (userData.admin < 1 && userData.dev < 1 && userDat
     return Astro.redirect("/403/")
 }
 
+const script = await getScript(Astro, "1")
+console.log(script)
 ---
 
 <DashboardLayout user={userData} title="Home">

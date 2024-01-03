@@ -14,7 +14,7 @@ export interface APIScriptResponse {
     }
 }
 
-export default async function getApplication(Astro: AstroGlobal, id: string) {
+export default async function getScript(Astro: AstroGlobal, id: string) {
 	let header = new Headers();
 	header.append('X-Token', Astro.cookies.get("access_token").value);
 	header.append('X-Script', id);
