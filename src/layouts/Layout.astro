@@ -1,0 +1,100 @@
+---
+import type { APIUserResponse } from '../api/User';
+
+export interface Props {
+	title: string;
+	user: APIUserResponse;
+}
+
+const { title, user } = Astro.props;
+
+---
+<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+
+<!DOCTYPE html>
+<html lang="en">	
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content="At Astrono, we prioritize two key elements: an unparalleled player experience and top-notch server performance. Immerse yourself in a realm where every playstyle finds a home, offering a multitude of unique game modes that cater to your preferences. Whether you're constructing dream castles, vanquishing mobs in intense boss fights, or engaging in thrilling PvP games, Astrono provides a diverse range of experiences.">
+		<meta name="author" content="Astrono Network">
+		<meta property="og:description" content="At Astrono, we prioritize two key elements: an unparalleled player experience and top-notch server performance. Immerse yourself in a realm where every playstyle finds a home, offering a multitude of unique game modes that cater to your preferences. Whether you're constructing dream castles, vanquishing mobs in intense boss fights, or engaging in thrilling PvP games, Astrono provides a diverse range of experiences.">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="Astrono Network">
+		<meta property="og:url" content="https://astrono.net/">
+		<meta property="og:image" content="https://astrono.net/icon.png">
+		
+		<!--<title>{title}</title>-->
+		<title>Astrono Dashboard - {title}</title>
+		<script src="https://kit.fontawesome.com/118e986a20.js" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/datepicker.min.js"></script>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	</head>
+
+	<body class="scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-[#0d1117] scrollbar-rounded-full text-light font-sans flex flex-col h-screen justify-between bg-[#0d1117]">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
+		<slot />
+	</body>
+</html>
+
+<style lang="scss">
+	:root {
+		--font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
+		--font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
+		--font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
+
+		--color-border: hsl(15, 2%, 33%);
+	}
+
+	html {
+		font-family: system-ui, sans-serif;
+		color: var(--color-text);
+		background-color: var(--background-color);
+
+	}
+	
+	body, html {
+		margin: 0;
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+</style>
+
+<style is:global>
+	.unselectable {
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		-o-user-select: none;
+		user-select: none;
+		cursor: default;
+	}
+
+	.unhighlightable {
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		-o-user-select: none;
+		user-select: none;
+	}
+
+	.command-btn {
+		border: 0;
+		outline: 0;
+		outline: none
+	}
+
+	code {
+		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+			Bitstream Vera Sans Mono, Courier New, monospace;
+	}
+</style>

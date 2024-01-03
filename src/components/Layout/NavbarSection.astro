@@ -1,0 +1,11 @@
+---
+export interface Props {
+	ref: string;
+}
+
+const { ref } = Astro.props;
+
+---
+<a href={ref} class="text-white text-[#cce3e1] hover:text-[#9cc6cb] rounded-lg inline-block text-md">
+    <slot />
+</a>

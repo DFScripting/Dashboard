@@ -1,0 +1,53 @@
+---
+import API, { APIErrorResponse } from '../../api/API'
+import type { APIUserResponse } from '../../api/User';
+
+// Login and Fetch Info Code
+export interface Props {
+	user: APIUserResponse;
+}
+
+const { user } = Astro.props;
+
+---
+<nav class="bg-[#282828] static border-gray-200 py-3 grid grid-cols-3 unhighlightable">
+	<ul class="flex justify-start items-center rounded-lg space-x-8 mt-0 text-sm ml-4 md:ml-10 lg:ml-20">
+		<li>
+			<!--<a href="/" class="hidden lg:block inline-block">
+				<img class="unhighlightable w-9 h-9 rounded-lg mr-2" src="/icon.png">
+			</a> -->
+
+			<button data-drawer-target="admin-sidebar" data-drawer-toggle="admin-sidebar" aria-controls="admin-sidebar" type="button" class="block sm:hidden unhighlightable w-9 h-9 rounded-lg mr-2 fa-solid fa-list fa-xl transition-colors text-zinc-400 hover:text-zinc-300 hover:bg-zinc-700" />
+		</li>
+	</ul>
+
+	<ul class="flex justify-end items-center rounded-lg space-x-8 mt-0 text-sm mr-4 md:mr-10 lg:mr-20 col-span-2">
+		<li>
+			<a href="https://discord.gg/gtfFwWEapx" target="_blank" class="inline-block">
+				<img class="unhighlightable w-9 h-9 rounded-lg mr-2" src="/discord.jpg">
+			</a>
+
+			{API.didError(user) ? () => {
+				return (
+					<a href="/login/" tabindex="-1" class="inline-block">
+						<img class="unhighlightable w-9 h-9 rounded-lg" src="/avatar.png">
+					</a>
+				)
+			} : () => {
+				return (
+					<button type="button" tabindex="-1" class="inline-block" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+						<img class="unhighlightable w-9 h-9 rounded-lg" src={user.avatar}>
+					</button>
+
+					<div id="user-dropdown" class="z-10 hidden bg-white divide-y divide-zinc-500 rounded-lg shadow w-44 bg-zinc-700">
+						<ul class="py-1 px-1" aria-labelledby="user-menu-button">
+							<li>
+								<a href="/logout/" class="unhighlightable block px-3 py-2 text-sm text-slate-200 hover:bg-zinc-600 rounded-lg hover:text-white">Sign out</a>
+							</li>
+						</ul>
+					</div>
+				)
+			}}
+		</li>
+	</ul>
+</nav>

@@ -1,0 +1,42 @@
+---
+import type { APIStatsResponse } from '../../api/Stats';
+export interface Props {
+    stats: APIStatsResponse;
+}
+
+const { stats } = Astro.props;
+---
+<footer class="unhighlightable flex-none p-4 md:items-center md:justify-between md:p-6 bg-[#202020]">
+    <div class="grid lg:grid-cols-4">
+        <div>
+            <p class="font-semibold">Server Status</p>
+            <div class="bg-zinc-900 rounded-lg px-3 py-1.5 ml-[-1px] mr-6 mt-2">
+                <i class={`fa-solid ${stats.proxy ? "text-green-500 fa-circle-check" : "text-red-500 fa-circle-xmark"} mr-2`}></i>Astrono Proxy {stats.proxy ? <i class="text-xs">({stats.minecraft} online)</i> : ""}
+            </div>
+        </div>
+
+        <div>
+            <p class="font-semibold">Useful Links</p>
+            <p><a href="/discord/" class="transition-colors text-xs hover:text-white text-zinc-400">Discord</a></p>
+            <p class="mt-[-5px]"><a href="https://github.com/AstronoMinecraft" class="transition-colors text-xs hover:text-white text-zinc-400">GitHub</a></p>
+            <p class="mt-[-5px]"><a href="/applications/" class="transition-colors text-xs hover:text-white text-zinc-400">Applications</a></p>
+        </div>
+
+        <div>
+            <p class="font-semibold text-[#202020]">.</p>
+            <p><a href="/streams/" class="transition-colors text-xs hover:text-white text-zinc-400">Streams</a></p>
+            <p class="mt-[-5px]"><a href="/rules/" class="transition-colors text-xs hover:text-white text-zinc-400">Rules</a></p>
+            <p class="mt-[-5px]"><a href="/privacy-policy/" class="transition-colors text-xs hover:text-white text-zinc-400">Privacy Policy</a></p>
+            <p class="mt-[-5px]"><a href="/terms/" class="transition-colors text-xs hover:text-white text-zinc-400">Terms and Conditions</a></p>
+        </div>
+
+        <div class="text-right">
+            <div class="justify-end flex mr-[-10px]">
+                <img class="h-28 w-28" src="/icon.png">
+            </div>
+
+            <p class="mt-[-5px] text-[0.95rem] text-zinc-300">© Copyright Astrono Network 2023</p>
+            <p class="text-[0.55rem] text-zinc-400">Astrono Network is not affiliated with or endorsed by Mojang. Any trademarks used belong to their respective owners.</p>
+        </div>
+    </div>
+</footer>

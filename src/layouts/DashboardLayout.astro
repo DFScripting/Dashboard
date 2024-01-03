@@ -1,0 +1,48 @@
+---
+import API from "../api/API";
+import type { APIUserResponse } from "../api/User";
+import Header from "../components/Layout/Header.astro";
+import Layout from "./Layout.astro"
+
+export interface Props {
+	title: string;
+	user: APIUserResponse;
+}
+
+const { title, user } = Astro.props;
+
+---
+
+<Layout title={title} user={user}>
+    <div class="unhighlightable">
+        <aside id="admin-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+            <div class="h-full px-3 py-4 overflow-y-auto bg-[#3b3b3b]">
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <a href="/" class="flex items-center px-2 py-1.5 rounded-lg text-sm text-white hover:bg-[#363636] group">
+                        <svg class="w-4 h-4 transition duration-75 text-gray-400 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 640 512">
+                            <path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/>
+                        </svg>
+                        <span class="ml-3">My Scripts</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/" class="flex items-center px-2 py-1.5 rounded-lg text-sm text-white hover:bg-[#363636] group">
+                        <svg class="w-4 h-4 transition duration-75 text-gray-400 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
+                            <path d="M80 104a24 24 0 1 0 0-48 24 24 0 1 0 0 48zm80-24c0 32.8-19.7 61-48 73.3v87.8c18.8-10.9 40.7-17.1 64-17.1h96c35.3 0 64-28.7 64-64v-6.7C307.7 141 288 112.8 288 80c0-44.2 35.8-80 80-80s80 35.8 80 80c0 32.8-19.7 61-48 73.3V160c0 70.7-57.3 128-128 128H176c-35.3 0-64 28.7-64 64v6.7c28.3 12.3 48 40.5 48 73.3c0 44.2-35.8 80-80 80s-80-35.8-80-80c0-32.8 19.7-61 48-73.3V352 153.3C19.7 141 0 112.8 0 80C0 35.8 35.8 0 80 0s80 35.8 80 80zm232 0a24 24 0 1 0 -48 0 24 24 0 1 0 48 0zM80 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/>
+                        </svg>
+                        <span class="ml-3">Public Scripts</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!---->
+        </aside>
+        
+        <div class="sm:ml-64">
+            <Header user={user}></Header>
+            <slot />
+        </div>
+    </div>
+</Layout>

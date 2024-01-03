@@ -1,0 +1,46 @@
+---
+import API from '../api/API';
+import { getUserCheck } from '../api/User';
+import Navbar from '../components/Layout/Navbar.astro';
+import NavbarDivide from '../components/Layout/NavbarDivide.astro';
+import NavbarMain from '../components/Layout/NavbarMain.astro';
+import NavbarMainDivide from '../components/Layout/NavbarMainDivide.astro';
+import NavbarSection from '../components/Layout/NavbarSection.astro';
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+
+// Login and Fetch Info Code
+const userData = await getUserCheck(Astro);
+
+// Redirect if no permission
+if (API.didError(userData) || (userData.admin < 1 && userData.dev < 1 && userData.mod < 1 && userData.builder < 1)) {
+    return Astro.redirect("/403/")
+}
+
+---
+
+<DashboardLayout user={userData} title="Home">
+    <Navbar>
+        <NavbarMain>Dashboard</NavbarMain>
+        <NavbarMainDivide></NavbarMainDivide>
+        <NavbarSection ref="/"><i class="fa-solid fa-house"></i></NavbarSection>
+        <NavbarDivide></NavbarDivide>
+        <NavbarSection ref="/">My Scripts</NavbarSection>
+    </Navbar>
+	
+    <div class="flex flex-wrap m-6 flex-grow flex-row grid place-content-start grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 items-stretch">
+        {userData.scripts.map(script => {
+            return (
+                <button class={`flex rounded bg-zinc-800 rounded overflow-hidden shadow-lg unhighlightable`}>
+                    <div class={`flex-none m-3 rounded-full w-10 h-10`}>
+                        <img src="https://dfonline.dev/public/images/DIAMOND.png" class={`p-1 py-0.5 text-zinc-200`}>
+                    </div>
+
+                    <div class="flex-initial text-left">
+                        <p class="font-bold text-xs mt-4 text-zinc-200">{script.name}</p>
+                        <p class="text-xs mt-[-3px] text-zinc-200">{script.description}</p>
+                    </div>
+                </button>
+            )
+        })}
+    </div>
+</DashboardLayout>
