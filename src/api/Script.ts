@@ -10,8 +10,20 @@ export interface APIScriptResponse {
     version: number;
     approved: boolean;
     headers: {
-        
-    }
+        type:string,
+        event:string
+        snippet: {
+            hidden: boolean
+            parts: {
+                action: string
+                type: string
+                arguments: {
+                    type: string
+                    value: string
+                }[]
+            }[]
+        }
+    }[]
 }
 
 export default async function getScript(Astro: AstroGlobal, id: string) {

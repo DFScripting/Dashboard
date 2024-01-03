@@ -1,0 +1,43 @@
+---
+import API from "../../api/API";
+import { getUserCheck } from "../../api/User";
+import Navbar from "../../components/Layout/Navbar.astro";
+import NavbarMain from "../../components/Layout/NavbarMain.astro"
+import Layout from "../../layouts/Layout.astro";
+
+import getScript from "../../api/Script";
+import getActiondump from "../../api/Actiondump";
+
+import Editor from "../../components/Editor/editor.svelte"
+
+const userData = await getUserCheck(Astro);
+
+const script = await getScript(Astro,"2");
+
+const actiondump = await getActiondump(Astro);
+---
+
+<Layout title="Script Editor" user={userData}>
+    <Navbar><NavbarMain>Script</NavbarMain></Navbar>
+    <main>
+        {() => {
+            if(API.didError(script)) return <div class="error">An error occurred whilst loading your script</div>
+            else return <div>
+                <Editor script={script} actiondump={actiondump} client:only />
+                </div>
+        }}
+    </main>
+</Layout>
+
+<style>
+    main {
+        height: 100%;
+        width: 100%;
+        overflow: scroll;
+        display: flex;
+    }
+
+    .error {
+        margin: auto;
+    }
+</style>
