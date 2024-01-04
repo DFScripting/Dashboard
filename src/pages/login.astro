@@ -10,11 +10,11 @@ if (code) {
 		expires: moment, secure: true, path: "/", sameSite: "lax"
 	});
 
-	return Astro.redirect("/user/");
+	return Astro.redirect("/");
 }
 
 if (Astro.cookies.get("access_token").value != "invalid" && Astro.cookies.get("access_token").value != null) {
-	return Astro.redirect("/user/");
+	return Astro.redirect("/");
 }
 
 //const microsoftUrl = `${API.APIBase}/dfscript/web/auth/?res=${encodeURIComponent(Astro.url.origin + "/")}`;

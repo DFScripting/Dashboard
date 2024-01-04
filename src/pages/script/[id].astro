@@ -9,6 +9,10 @@ import getScript from "../../api/Script";
 import getActiondump from "../../api/Actiondump";
 
 import Editor from "../../components/Editor/editor.svelte"
+import NavbarMainDivide from "../../components/Layout/NavbarMainDivide.astro";
+import NavbarSection from "../../components/Layout/NavbarSection.astro";
+import NavbarDivide from "../../components/Layout/NavbarDivide.astro";
+import Header from "../../components/Layout/Header.astro";
 
 const scriptId = Astro.params.id as string
 const userData = await getUserCheck(Astro);
@@ -18,7 +22,17 @@ const actiondump = await getActiondump(Astro);
 ---
 
 <Layout title="Script Editor" user={userData}>
-    <Navbar><NavbarMain>Script</NavbarMain></Navbar>
+    <Header user={userData}></Header>
+    <Navbar>
+        <NavbarMain>Dashboard</NavbarMain>
+        <NavbarMainDivide></NavbarMainDivide>
+        <NavbarSection ref="/"><i class="fa-solid fa-house"></i></NavbarSection>
+        <NavbarDivide></NavbarDivide>
+        <NavbarSection ref={`/`}>My Scripts</NavbarSection>
+        <NavbarDivide></NavbarDivide>
+        <NavbarSection ref={`/script/${scriptId}/`}>Script Editor</NavbarSection>
+    </Navbar>
+	
     <main>
         {() => {
             if(API.didError(script)) return <div class="error">An error occurred whilst loading your script</div>
