@@ -1,7 +1,10 @@
 <script lang="ts">
-    import type { APIActiondumpResponse } from "../../api/Actiondump";
+    import { createEventDispatcher } from "svelte";
+    import type { APIActiondumpResponse, Action } from "../../api/Actiondump";
 
     export let actiondump: APIActiondumpResponse;
+
+    const dispatch = createEventDispatcher<{'pick': Action}>();
 
     let query = "";
 </script>
@@ -19,9 +22,11 @@
         <div class="list">
             <div id="events">
                 {#each actiondump.actions as action}
-                    {#if action.name.toLowerCase().includes(query.toLowerCase())}
-                        <span class="entryrow"><img on:dragstart|preventDefault src={`/item/${action.icon.toUpperCase()}.png`} alt=""> {action.name}</span>
-                    {/if}
+                {#if action.name.toLowerCase().includes(query.toLowerCase())}
+                    <button on:click={() => {
+                        dispatch('pick',action);
+                    }} class="entryrow" class:hidden={!action.name.toLowerCase().includes(query.toLowerCase())}><img on:dragstart|preventDefault src={`/item/${action.icon.toUpperCase()}.png`} alt=""> {action.name}</button>
+                {/if}
                 {/each}
             </div>
             <div id="actions"></div>
@@ -33,7 +38,11 @@
 
 <style>
     .sidebar {
-        display: grid;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 18%;
+        overflow: hidden;
     }
 
     .palette {
@@ -47,8 +56,13 @@
     .list {
         overflow: scroll;
         height: 100%;
+        width: 100%;
     }
 
+    .categories {
+        width: max-content;
+        white-space: nowrap;
+    }
     .categories, .list > * {
         display: flex;
         flex-direction: column;
@@ -59,9 +73,17 @@
         user-select: none;
         width: 100%;
         padding: 0.3em;
+        transition: 0.5s opacity;
+    }
+    .hidden {
+        opacity: 0.1;
     }
     img {
         height: 1.5em;
         padding-right: 0.3em;
+    }
+
+    input {
+        text-align: center;
     }
 </style>

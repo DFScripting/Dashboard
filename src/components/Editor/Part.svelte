@@ -1,9 +1,9 @@
 <script lang="ts">
     import type { APIActiondumpResponse } from "../../api/Actiondump";
-    import type { APIScriptResponse } from "../../api/Script";
-    import Argument from "./argument.svelte";
+    import type { part } from "../../api/Script";
+    import Argument from "./Argument.svelte";
 
-    export let part: APIScriptResponse['headers'][number]['snippet']['parts'][number];
+    export let part: part;
 
     export let actiondump: APIActiondumpResponse
 
@@ -41,6 +41,4 @@
         margin-right: 0.5em;
         user-select: none;
     }
-
-
 </style>

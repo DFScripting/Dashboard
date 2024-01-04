@@ -8,7 +8,7 @@ import Layout from "../../layouts/Layout.astro";
 import getScript from "../../api/Script";
 import getActiondump from "../../api/Actiondump";
 
-import Editor from "../../components/Editor/editor.svelte"
+import Editor from "../../components/Editor/Editor.svelte"
 import NavbarMainDivide from "../../components/Layout/NavbarMainDivide.astro";
 import NavbarSection from "../../components/Layout/NavbarSection.astro";
 import NavbarDivide from "../../components/Layout/NavbarDivide.astro";
@@ -36,9 +36,7 @@ const actiondump = await getActiondump(Astro);
     <main>
         {() => {
             if(API.didError(script)) return <div class="error">An error occurred whilst loading your script</div>
-            else return <div>
-                <Editor script={script} actiondump={actiondump} client:only />
-                </div>
+            else return <Editor script={script} actiondump={actiondump} client:only />
         }}
     </main>
 </Layout>

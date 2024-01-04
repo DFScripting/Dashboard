@@ -1,9 +1,9 @@
 <script lang="ts">
     import type { APIActiondumpResponse } from "../../api/Actiondump";
-    import type { APIScriptResponse } from "../../api/Script";
-    import Part from "./part.svelte";
+    import type { snippet } from "../../api/Script";
+    import Part from "./Part.svelte";
 
-    export let snippet: APIScriptResponse['headers'][number]['snippet'];
+    export let snippet: snippet;
 
     export let actiondump: APIActiondumpResponse
 </script>
