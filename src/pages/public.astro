@@ -1,7 +1,9 @@
 ---
 import API from '../api/API';
+import installScript from '../api/Install';
 import getPublic from '../api/Public';
 import getScript from '../api/Script';
+import uninstallScript from '../api/Uninstall';
 import { getUserCheck } from '../api/User';
 import Navbar from '../components/Layout/Navbar.astro';
 import NavbarDivide from '../components/Layout/NavbarDivide.astro';
@@ -19,6 +21,15 @@ if (API.didError(userData)) {
     return Astro.redirect("/403/")
 }
 
+if (Astro.url.searchParams.get("install") != null) {
+    await installScript(Astro, Astro.url.searchParams.get("install"))
+    return Astro.redirect("/public/")
+}
+
+if (Astro.url.searchParams.get("uninstall") != null) {
+    await uninstallScript(Astro, Astro.url.searchParams.get("uninstall"))
+    return Astro.redirect("/public/")
+}
 ---
 
 <DashboardLayout user={userData} title="Public Scripts">
@@ -72,10 +83,10 @@ if (API.didError(userData)) {
                                     </div>
                                 </div>
 
-                                {script.self ? "" : (script.installed ? 
-                                    <button class="mt-5 w-full text-white focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors bg-red-600 hover:bg-red-700">Uninstall Script</button>
+                                {script.self ? "" : (userData.installed.includes(script.id) ? 
+                                    <button onclick={`location.href = '/public/?uninstall=${script.id}'`} class="mt-5 w-full text-white focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors bg-red-600 hover:bg-red-700">Uninstall Script</button>
                                     : 
-                                    <button class="mt-5 w-full text-white focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors bg-blue-600 hover:bg-blue-700">Install Script</button>
+                                    <button onclick={`location.href = '/public/?install=${script.id}'`} class="mt-5 w-full text-white focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors bg-blue-600 hover:bg-blue-700">Install Script</button>
                                 )}
                             </div>
                         </div>
