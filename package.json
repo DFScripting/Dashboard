@@ -23,13 +23,14 @@
     "@astrojs/svelte": "^2.0.2",
     "@astrojs/tailwind": "^3.0.1",
     "@tailwindcss/typography": "^0.5.9",
-    "daisyui": "^4.5.0",
     "change-case": "^5.3.0",
+    "daisyui": "^4.5.0",
     "flowbite": "^1.6.3",
     "jsdom": "^23.0.1",
     "link-preview-js": "^3.0.4",
     "svelte": "^3.55.1",
     "svelte-loading-spinners": "^0.3.4",
-    "tailwindcss": "^3.2.7"
+    "tailwindcss": "^3.2.7",
+    "yarn": "^1.22.21"
   }
 }
