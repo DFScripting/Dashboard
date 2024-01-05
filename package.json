@@ -14,7 +14,7 @@
     "@astrojs/tailwind": "^3.0.1",
     "astro": "^2.0.17",
     "flowbite": "^1.6.3",
-    "sass": "^1.54.9",
+    "sass": "^1.69.7",
     "tailwind-scrollbar": "^3.0.0"
   },
   "dependencies": {
