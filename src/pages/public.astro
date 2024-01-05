@@ -50,8 +50,8 @@ if (Astro.url.searchParams.get("uninstall") != null) {
                     </div>
 
                     <div class="flex-initial text-left">
-                        <p class="font-bold text-xs mt-4 text-zinc-200 truncate">{script.name}</p>
-                        <p class="text-xs mt-[-3px] text-zinc-200 truncate">{script.description}</p>
+                        <p class="font-bold text-xs mt-4 text-zinc-200">{script.name}</p>
+                        <p class="text-xs mt-[-3px] text-zinc-200">{script.description}</p>
                     </div>
                 </button>
 
@@ -79,12 +79,15 @@ if (Astro.url.searchParams.get("uninstall") != null) {
 
                                     <div>
                                         <p class="font-bold text-xs mb-1 text-zinc-400 uppercase">Version</p>
-                                        <p class="text-xs text-zinc-300">{script.version}</p>
+                                        <p class="text-xs text-zinc-300">{script.script_version} <span class="text-zinc-500 italic">({script.version})</span></p>
                                     </div>
                                 </div>
 
                                 {script.self ? "" : (userData.installed.includes(script.id) ? 
-                                    <button onclick={`location.href = '/public/?uninstall=${script.id}'`} class="mt-5 w-full text-white focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors bg-red-600 hover:bg-red-700">Uninstall Script</button>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <button onclick={`location.href = '/public/?install=${script.id}'`} class="mt-5 w-full text-white focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors bg-blue-600 hover:bg-blue-700">Update Script</button>
+                                        <button onclick={`location.href = '/public/?uninstall=${script.id}'`} class="mt-5 w-full text-white focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors bg-red-600 hover:bg-red-700">Uninstall Script</button>
+                                    </div>
                                     : 
                                     <button onclick={`location.href = '/public/?install=${script.id}'`} class="mt-5 w-full text-white focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors bg-blue-600 hover:bg-blue-700">Install Script</button>
                                 )}
