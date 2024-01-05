@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a Issue
+    url: https://github.com/DFScripting/DFScript/issues
+    about: Report an issue via our main repository.

@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { APIScriptResponse } from "../../api/Script";
+    import type { argument } from "../../api/Script";
 
-    export let argument: APIScriptResponse['headers'][number]['snippet']['parts'][number]['arguments'][number];
+    export let argument: argument;
 </script>
 
 <div class:argument class={argument.type.toLowerCase()}>

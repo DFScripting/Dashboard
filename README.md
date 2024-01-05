@@ -13,3 +13,4 @@ DFScript is a mod created for DiamondFire to allow scripting on the client. This
   <img src="https://img.shields.io/github/contributors/DFOnline/Dashboard" />
   <img src="https://img.shields.io/github/release-date/DFOnline/Dashboard" /> 
  </p>
+ 
