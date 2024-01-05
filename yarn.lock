@@ -87,13 +87,13 @@
   dependencies:
     prismjs "^1.28.0"
 
-"@astrojs/svelte@^2.0.2":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@astrojs/svelte/-/svelte-2.2.0.tgz#5e34231c6ea4af08d1f2054ab479a4195552f48e"
-  integrity sha512-4kfh3GEIIOqH/wwTwLloRsZJ3z7rJ1eZWZ1oFrfEIjiQny5XqxyRJp/tUseKfaeDwKQGL+9t31ePTuwxx5oung==
+"@astrojs/svelte@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@astrojs/svelte/-/svelte-3.1.1.tgz#ffcc0de464604dfb624b00126fa4796583841447"
+  integrity sha512-sPTe43zqFVvZq7qjCgT6vkOpMyKI0uEpqm/X3zSRse0Sn1ZyMEipes2KLmJQvPOZw3Zxy4+PX3E3Ns59hwRX1Q==
   dependencies:
-    "@sveltejs/vite-plugin-svelte" "^2.1.1"
-    svelte2tsx "^0.5.11"
+    "@sveltejs/vite-plugin-svelte" "^2.4.2"
+    svelte2tsx "^0.6.15"
 
 "@astrojs/tailwind@^3.0.1":
   version "3.1.3"
@@ -684,7 +684,7 @@
   dependencies:
     debug "^4.3.4"
 
-"@sveltejs/vite-plugin-svelte@^2.1.1":
+"@sveltejs/vite-plugin-svelte@^2.4.2":
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/@sveltejs/vite-plugin-svelte/-/vite-plugin-svelte-2.5.3.tgz#23f810d0c38d159491845175c2566a51639be3fc"
   integrity sha512-erhNtXxE5/6xGZz/M9eXsmI7Pxa6MS7jyTy06zN3Ck++ldrppOnOlJwHHTsMC7DHDQdgUp4NAc4cDNQ9eGdB/w==
@@ -3437,6 +3437,7 @@ stdin-discarder@^0.1.0:
     bl "^5.0.0"
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
+  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -3470,6 +3471,7 @@ stringify-entities@^4.0.0:
     character-entities-legacy "^3.0.0"
 
 "strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+  name strip-ansi-cjs
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -3552,10 +3554,10 @@ svelte-loading-spinners@^0.3.4:
   resolved "https://registry.yarnpkg.com/svelte-loading-spinners/-/svelte-loading-spinners-0.3.4.tgz#af11d0f9ef0943026415c931900c10fea02a88a5"
   integrity sha512-vKaW71QMCBcTNijAGc0mUl8k3DQ66iYmp6MB8BMGCXyWk82bTrcLy8FOnSm9fE+8q6TwzD6PLUoYFHt0II93Xw==
 
-svelte2tsx@^0.5.11:
-  version "0.5.23"
-  resolved "https://registry.yarnpkg.com/svelte2tsx/-/svelte2tsx-0.5.23.tgz#e20c464b3250f97902994d3784a57e87ca86a849"
-  integrity sha512-jYFnugTQRFmUpvLXPQrKzVYcW5ErT+0QCxg027Zx9BuvYefMZFuoBSTDYe7viPEFGrPPiLgT2m7f5n9khE7f7Q==
+svelte2tsx@^0.6.15:
+  version "0.6.27"
+  resolved "https://registry.yarnpkg.com/svelte2tsx/-/svelte2tsx-0.6.27.tgz#5b2c21f38608be51cd32de177722f123e57919e5"
+  integrity sha512-E1uPW1o6VsbRz+nUk3fznZ2lSmCITAJoNu8AYefWSvIwE2pSB01i5sId4RMbWNzfcwCQl1DcgGShCPcldl4rvg==
   dependencies:
     dedent-js "^1.0.1"
     pascal-case "^3.1.1"
