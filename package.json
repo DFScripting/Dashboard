@@ -26,7 +26,7 @@
     "change-case": "^5.3.0",
     "daisyui": "^2.51.6",
     "flowbite": "^1.6.3",
-    "jsdom": "^22.1.0",
+    "jsdom": "^23.0.1",
     "link-preview-js": "^3.0.4",
     "svelte": "^3.55.1",
     "svelte-loading-spinners": "^0.3.4",
