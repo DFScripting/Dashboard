@@ -24,7 +24,7 @@
     "@astrojs/tailwind": "^3.0.1",
     "@tailwindcss/typography": "^0.5.9",
     "change-case": "^4.1.2",
-    "daisyui": "^2.51.6",
+    "daisyui": "^4.5.0",
     "flowbite": "^1.6.3",
     "jsdom": "^22.1.0",
     "link-preview-js": "^3.0.4",
