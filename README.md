@@ -6,9 +6,7 @@ DFScript is a mod created for DiamondFire to allow scripting on the client. This
 - You can join our [discord here](https://discord.gg/gtfFwWEapx)
 
 <p>
-<img src="https://img.shields.io/github/downloads/DFScripting/Dashboard/total?color=blue"/>
-<img src="https://img.shields.io/github/languages/code-size/DFScripting/Dashboard"/>
+  <img src="https://img.shields.io/github/languages/code-size/DFScripting/Dashboard"/>
   <img src="https://img.shields.io/github/contributors/DFScripting/Dashboard" />
-  <img src="https://img.shields.io/github/release-date/DFScripting/Dashboard" /> 
  </p>
  
