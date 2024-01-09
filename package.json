@@ -30,7 +30,7 @@
     "link-preview-js": "^3.0.4",
     "svelte": "^3.55.1",
     "svelte-loading-spinners": "^0.3.4",
-    "tailwindcss": "^3.2.7",
+    "tailwindcss": "^3.4.1",
     "yarn": "^1.22.21"
   }
 }
