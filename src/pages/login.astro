@@ -17,8 +17,7 @@ if (Astro.cookies.get("access_token").value != "invalid" && Astro.cookies.get("a
 	return Astro.redirect("/");
 }
 
-//const microsoftUrl = `${API.APIBase}/dfscript/web/auth/?res=${encodeURIComponent(Astro.url.origin + "/")}`;
-const microsoftUrl = `https://api.astrono.net/auth/microsoft/auth/?res=${encodeURIComponent(Astro.url.origin + "/")}`;
+const microsoftUrl = `${API.APIBase}/dfscript/web/auth/?res=${encodeURIComponent(Astro.url.origin + "/")}`;
 
 ---
 <Layout title="Astrono Network - Login">
