@@ -1,80 +1,47 @@
 <script lang="ts">
-    import Header from "./Header.svelte";
-
     import type { APIScriptResponse, snippet as snippet } from "../../api/Script";
     import type { APIActiondumpResponse } from "../../api/Actiondump"
     import Sidebar from "./Sidebar.svelte";
-    import FloatingSnippet from "./FloatingSnippet.svelte";
-
-    let snippetsData: snippet[] = [];
+    import Header from "./Header.svelte";
+    import Snippet from "./Snippet.svelte";
+    
     export let script: APIScriptResponse;
     export let actiondump: APIActiondumpResponse;
 
     let headers: Header[] = [];
-    let snippets: FloatingSnippet[] = [];
-
     let area: HTMLSpanElement;
 
-    function mouseMove(ev: MouseEvent) {
-        headers.forEach(el => el.onMove(ev));
-        snippets.forEach((el,i) => {
-            if(el == null) return;
-            if(el.onMove(ev) == "FINISHED") {
-                headers.forEach(header => {
-                    const region = header.getRegion();
-                    const inside = 
-                        ((region.top < ev.clientY) && (region.bottom > ev.clientY)) &&
-                        ((region.left < ev.clientX) && (region.right > ev.clientX));
-                    if(inside) {
-                        header.insertCode(ev,snippetsData[i].parts);
-                        snippets.splice(i,1);
-                        snippets = [...snippets];
-                        snippetsData.splice(i,1);
-                        snippetsData = [...snippetsData];
-                        // snippets;
-                    }
-                })
-            }
-        });
-    }
-    
-    
+    console.log(script)
 </script>
 
 <span class="editor">
-    <Sidebar actiondump={actiondump} on:pick={e => {
-        // snippetsData.push({
-        //     hidden: false,
-        //     parts: [
-        //         {
-        //             action: e.detail.identifier,
-        //             type: 'action',
-        //             arguments: []
-        //         }
-        //     ]
-        // })
-        snippetsData = [...snippetsData, {
-            hidden: false,
-            parts: [
-                {
-                    action: e.detail.identifier,
-                    type: 'action',
-                    arguments: []
+    <Sidebar actiondump={actiondump} />
+    <span bind:this={area} class="area" on:dragover={e => {
+        if(e.dataTransfer?.getData("x-dfscript-type") == "event") {
+            e.preventDefault();
+        }
+    }} on:drop={e => {
+        if(e.dataTransfer?.getData("x-dfscript-type") == "event") {
+            let i = 0;
+            headers.forEach(x => {
+                if(x.getRegion().x + x.getRegion().width / 2 < e.clientX) {
+                    i++;
                 }
-            ]
-        }];
-        // snippetsData= [];
-    }} />
-        
-    <span bind:this={area} class="area" on:mousemove={mouseMove} on:mouseup={mouseMove}>
-        <button on:click={() => {
-            script.headers = [...script.headers, script.headers[0]];
-        }}>Pop Headers</button>
-        {#each script.headers as header, i}
-            <Header bind:this={headers[i]} bind:header={header} actiondump={actiondump} />
-        {/each}
-        {#each snippetsData as snippet, i (snippet)}
-            <FloatingSnippet bind:this={snippets[i]} bind:snippet={snippetsData[i]} actiondump={actiondump} />
+            })
+            console.log(i);
+            script.headers.splice(i,0,{
+                event: e.dataTransfer.getData("x-dfscript-identifier"),
+                snippet: {
+                    hidden: false,
+                    parts: [],
+                },
+                type: "event"
+            })
+            script.headers = [...script.headers]
+        }
+    }}>
+        {#each script.headers as header, i (header)}
+            <Header bind:this={headers[i]} bind:header={script.headers[i]} actiondump={actiondump} />
         {/each}
     </span>
 </span>
@@ -89,6 +56,9 @@
         height: 100%;
     }
     .area {
+        padding: 3em;
         overflow: scroll;
+        display: flex;
+        gap: 3em;
     }
 </style>

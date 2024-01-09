@@ -11,10 +11,6 @@
     let dump_header = actiondump.events.find(h => h.identifier == header.event)
 
     let float: HandleFloater
-    export function onMove(e: MouseEvent) {
-        float.onMove(e);
-    }
-
     export function getRegion() {
         return float.getHTML().getBoundingClientRect();
     }
@@ -41,6 +37,7 @@
         border-radius: 1em 1em 0 0;
         user-select: none;
         display: flex;
+        width: max-content;
     }
 
     img {

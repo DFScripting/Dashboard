@@ -8,8 +8,14 @@
     export let actiondump: APIActiondumpResponse
 </script>
 
-<div>
+<div class="snippet">
     {#each snippet.parts as part,i}
         <Part bind:part={part} actiondump={actiondump} />
     {/each}
 </div>
+
+<style>
+    .snippet {
+        width: max-content;
+    }
+</style>

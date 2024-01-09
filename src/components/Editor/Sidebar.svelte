@@ -1,10 +1,10 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
-    import type { APIActiondumpResponse, Action } from "../../api/Actiondump";
+    import type { APIActiondumpResponse, Action, Event } from "../../api/Actiondump";
 
     export let actiondump: APIActiondumpResponse;
 
-    const dispatch = createEventDispatcher<{'pick': Action}>();
+    const dispatch = createEventDispatcher<{'event': Event, 'pick': Action}>();
 
     let query = "";
 </script>
@@ -13,23 +13,36 @@
     <input type="text" placeholder="Search" bind:value={query}>
     <div class="palette">
         <div class="categories">
-            <button>Events</button>
-            <button>Actions</button>
-            <button>Client Values</button>
-            <button>Variables</button>
+            <a href="#events">Events</a>
+            <a href="#actions">Actions</a>
+            <a href="#values">Client Values</a>
+            <a href="#variables">Variables</a>
         </div>
 
         <div class="list">
             <div id="events">
+                <h3>EVENTS</h3>
+                {#each actiondump.events as event}
+                {#if event.name.toLowerCase().includes(query.toLowerCase())}
+                    <span class="entryrow" draggable=true on:dragstart={e => {
+                        e.dataTransfer?.setData("x-dfscript-type","event")
+                        e.dataTransfer?.setData("x-dfscript-identifier",event.identifier)
+                    }}>
+                        <img on:dragstart|preventDefault src={`/item/${event.icon.toUpperCase()}.png`} alt=""> {event.name}
+                    </span>
+                {/if}
+                {/each}
+            </div>
+            <div id="actions">
+                <h3>ACTIONS</h3>
                 {#each actiondump.actions as action}
                 {#if action.name.toLowerCase().includes(query.toLowerCase())}
                     <button on:click={() => {
                         dispatch('pick',action);
-                    }} class="entryrow" class:hidden={!action.name.toLowerCase().includes(query.toLowerCase())}><img on:dragstart|preventDefault src={`/item/${action.icon.toUpperCase()}.png`} alt=""> {action.name}</button>
+                    }} class="entryrow"><img on:dragstart|preventDefault src={`/item/${action.icon.toUpperCase()}.png`} alt=""> {action.name}</button>
                 {/if}
                 {/each}
             </div>
-            <div id="actions"></div>
             <div id="values"></div>
             <div id="variables"></div>
         </div>
@@ -43,6 +56,11 @@
         height: 100%;
         width: 18%;
         overflow: hidden;
+    }
+
+    h3 {
+        font-size: 150%;
+        margin-inline: auto;
     }
 
     .palette {
@@ -74,9 +92,6 @@
         width: 100%;
         padding: 0.3em;
         transition: 0.5s opacity;
-    }
-    .hidden {
-        opacity: 0.1;
     }
     img {
         height: 1.5em;

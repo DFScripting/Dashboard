@@ -9,11 +9,6 @@
     export let actiondump: APIActiondumpResponse
 
     let float : HandleFloater;
-    export function onMove(e: MouseEvent) {
-        return float.onMove(e);
-    }
-    
-    console.log(snippet)
 </script>
 
 <HandleFloater bind:this={float}>
