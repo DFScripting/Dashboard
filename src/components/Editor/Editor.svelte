@@ -14,7 +14,7 @@
     console.log(script)
 </script>
 
-<span class="editor">
+<span class="flex w-full h-full">
     <Sidebar actiondump={actiondump} />
     <span bind:this={area} class="area" on:dragover={e => {
         if(e.dataTransfer?.getData("x-dfscript-type") == "event") {
@@ -47,15 +47,9 @@
 </span>
 
 <style>
-    .editor {
-        display: flex;
-    }
-
-    .editor, .area {
+    .area {
         width: 100%;
         height: 100%;
-    }
-    .area {
         padding: 3em;
         overflow: scroll;
         display: flex;

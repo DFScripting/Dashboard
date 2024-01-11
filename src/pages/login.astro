@@ -42,7 +42,7 @@ const microsoftUrl = `${API.APIBase}/dfscript/web/auth/?res=${encodeURIComponent
 				<div class="border-b border-zinc-700 m-2"></div>
 	
 				<div class={`unhighlightable mt-6 gap-3 grid grid-cols-1 lg:grid-cols-6`}>
-					<button id="microsoft-button" onclick={`login('${microsoftUrl}', 'microsoft', 'bg-[#ffffff]', 'text-[#000000]')`} class="lg:col-span-4 lg:col-start-2 rounded-lg bg-[#ffffff] py-2">
+					<button onclick={`location.href = "${microsoftUrl}"`} id="microsoft-button" class="lg:col-span-4 lg:col-start-2 rounded-lg bg-[#ffffff] py-2">
 						<img class="mx-auto h-6" src="/microsoft.jpg">
 					</button>
 				</div>
@@ -56,17 +56,3 @@ const microsoftUrl = `${API.APIBase}/dfscript/web/auth/?res=${encodeURIComponent
 		</div>
 	</div>
 </Layout>
-
-
-<script client:load>
-    function login(uri, method, style, text) {
-		login_button = document.getElementById(method + "-button");
-		login_button.disabled = true;
-		login_button.className = `lg:col-span-4 lg:col-start-2 rounded-lg ${style} py-2 cursor-not-allowed`
-		login_button.innerHTML = `<i class=\"mx-auto animate-spin ${text} fa-solid fa-spinner\"></i>`
-
-		setTimeout(() => {  
-            location.replace(uri)
-		}, 1000);
-    }
-</script>

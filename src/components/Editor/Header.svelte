@@ -22,7 +22,7 @@
 </script>
 
 <HandleFloater bind:this={float}>
-    <div slot="head" class="header">
+    <div slot="head" class="header bg-cyan-500">
         <img on:dragstart|preventDefault src={`/item/${dump_header?.icon.toUpperCase()}.png`} alt="Icon">
         {dump_header?.name ?? header.event}
     </div>
@@ -32,7 +32,6 @@
 
 <style>
     .header {
-        background-color: aqua;
         padding: 1em;
         border-radius: 1em 1em 0 0;
         user-select: none;
