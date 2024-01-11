@@ -9,7 +9,7 @@
     let query = "";
 </script>
 
-<div class="sidebar bg-[#3b3b3b] px-2 py-2">
+<div class="sidebar bg-[#3b3b3b] px-3 py-3">
     <input type="text" class="border text-sm rounded-lg block w-full mb-2 p-2.5 py-1.5 bg-zinc-600 border-zinc-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Search" bind:value={query}>
     <div class="palette">
         <div class="grid gap-1 categories text-white border-r border-zinc-600">

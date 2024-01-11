@@ -30,7 +30,7 @@ if (API.didError(userData)) {
     <div class="flex flex-wrap m-6 flex-grow flex-row grid place-content-start grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 items-stretch">
         {userData.scripts.map(script => {
             return (
-                <a href={`/script/${script.id}/`}  class={`flex rounded bg-zinc-800 rounded overflow-hidden shadow-lg unhighlightable`}>
+                <a href={`/script/${script.id}/`} class={`flex rounded bg-zinc-800 rounded overflow-hidden shadow-lg unhighlightable`}>
                     <div class={`flex-none m-3 rounded-full w-10 h-10`}>
                         <img src="https://dfonline.dev/public/images/DIAMOND.png" class={`p-1 py-0.5 text-zinc-200`}>
                     </div>

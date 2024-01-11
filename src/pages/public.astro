@@ -59,6 +59,7 @@ if (Astro.url.searchParams.get("uninstall") != null) {
                     <div class="relative w-full max-w-md max-h-full">
                         <div class="relative rounded-lg shadow bg-zinc-700">
                             <div class="px-6 py-6 lg:px-8">
+                                <a href={`/script/${script.id}/`} target="_blank" class="text-zinc-500 text-xs">Test Editor</a>
                                 <p class="mb-4 text-xl font-medium text-zinc-300">{script.self ? "" : (script.installed ? "Uninstall " : "Install ")}{script.name}</p>
 
                                 <div class="grid grid-cols-2 gap-3">
