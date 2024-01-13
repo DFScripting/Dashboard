@@ -4,9 +4,60 @@ import API from "./API";
 export const api = new API();
 
 export interface APIActiondumpResponse {
+    conditions: Condition[]
     actions: Action[]
     events: Event[]
     client_values: ClientValue[]
+}
+
+export interface Argument {
+    type_icon: (typeof ArgumentTypes)[ArgumentType]['icon']
+    type_name: (typeof ArgumentTypes)[ArgumentType]['name']
+    plural: boolean
+    name: string
+    optional: boolean
+    type: ArgumentType
+}
+
+export type ArgumentType = keyof typeof ArgumentTypes
+export const ArgumentTypes = {
+    ANY: {
+        icon: "ender_eye",
+        name: "Any"
+    },
+    NUMBER: {
+        icon: "slime_ball",
+        name: "number"
+    },
+    TEXT: {
+        icon: "book",
+        name: "Text"
+    },
+    LIST: {
+        icon: "chest",
+        name: "List"
+    },
+    DICTIONARY: {
+        icon: "chest_minecart",
+        name: "Dictionary"
+    },
+    BOOL: {
+        icon: "lever",
+        name: "Boolean"
+    },
+    VARIABLE: {
+        icon: "magma_cream",
+        name: "Variable"
+    },
+
+} as const
+
+export interface Condition {
+    identifier: string,
+    name: string,
+    icon: string,
+    description: string,
+    arguments: Argument[]
 }
 
 export interface Action {
@@ -15,14 +66,7 @@ export interface Action {
     icon: string
     description: string
     category: string
-    arguments: {
-        type_icon: string
-        type_name: string
-        plural: boolean
-        name: string
-        optional: boolean
-        type: string
-    }[]
+    arguments: Argument[]
 }
 export interface Event {
     identifier: string

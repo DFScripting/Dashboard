@@ -1,5 +1,6 @@
 import type { AstroGlobal } from "astro";
 import API from "./API";
+import type { ArgumentType } from "./Actiondump";
 
 export const api = new API();
 
@@ -23,14 +24,29 @@ export interface snippet {
     parts: part[]
 }
 
-export interface part {
+export type part = actionPart|branchPart;
+
+export interface actionPart {
+    type: "action"
     action: string
-    type: string
     arguments: argument[]
+}
+export interface branchPart {
+    type: "branch",
+    condition: {
+        condition: string,
+        type: "condition",
+        inverted: boolean,
+    }
+    true: snippet,
+    false?: snippet,
+    hasElse: boolean,
+    arguments: argument[]
+    
 }
 
 export interface argument {
-    type: string
+    type: ArgumentType
     value: string
 }
 

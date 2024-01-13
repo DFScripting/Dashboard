@@ -11,10 +11,10 @@
     let headers: Header[] = [];
     let area: HTMLSpanElement;
 
-    console.log(script)
+    console.log(script);
 </script>
 
-<span class="flex w-full h-full">
+<span class="flex w-full h-full" on:contextmenu|preventDefault>
     <Sidebar actiondump={actiondump} />
     <span bind:this={area} class="area" on:dragover={e => {
         if(e.dataTransfer?.getData("x-dfscript-type") == "event") {
@@ -41,7 +41,13 @@
         }
     }}>
         {#each script.headers as header, i (header)}
-            <Header bind:this={headers[i]} bind:header={script.headers[i]} actiondump={actiondump} />
+            <Header bind:this={headers[i]} bind:header={script.headers[i]} actiondump={actiondump} on:delete={() => {
+                script.headers.splice(i,1);
+                script.headers = script.headers;
+                setTimeout(() => {
+                    headers = headers.filter(x => x); // removing stuff can add nulls so clear them out
+                })
+            }} />
         {/each}
     </span>
 </span>

@@ -3,6 +3,9 @@
     import type { header, part } from "../../api/Script";
     import HandleFloater from "./HandleFloater.svelte";
     import Snippet from "./Snippet.svelte";
+    import ContextMenu from "./ContextMenu.svelte";
+    import { createEventDispatcher } from "svelte"
+    import { getNewPart, parseSidebarDrag } from './Utility';
 
     export let header: header
 
@@ -15,20 +18,37 @@
         return float.getHTML().getBoundingClientRect();
     }
 
-    export function insertCode(event: MouseEvent, code: part[]) {
-        header.snippet.parts.push(...code);
-        header = header
-    }
+    const dispatcher = createEventDispatcher<{'delete':undefined}>();
+
+    let ctx: ContextMenu;
 </script>
 
 <HandleFloater bind:this={float}>
-    <div slot="head" class="header bg-cyan-500">
+    <div slot="head" class="header bg-cyan-500" on:contextmenu|preventDefault={ctx.open} on:dragover={e => {
+        const {type} = parseSidebarDrag(e.dataTransfer);
+        if(type == "action" || type == "condition") {
+            e.preventDefault();
+        }
+    }} on:drop={e => {
+        const {type,id} = parseSidebarDrag(e.dataTransfer);
+        if(type == "action" || type == "condition") {
+            header.snippet.parts = [
+                getNewPart(type,id),
+                ...header.snippet.parts
+            ]
+        }
+    }}>
         <img on:dragstart|preventDefault src={`/item/${dump_header?.icon.toUpperCase()}.png`} alt="Icon">
         {dump_header?.name ?? header.event}
     </div>
     <Snippet slot="content" bind:snippet={header.snippet} actiondump={actiondump} />
 </HandleFloater>
 
+<ContextMenu bind:this={ctx}>
+    <button on:click={() => {
+        dispatcher('delete');
+    }}>Delete</button>
+</ContextMenu>
 
 <style>
     .header {
