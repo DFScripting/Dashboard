@@ -1,6 +1,6 @@
 import type { AstroGlobal } from "astro";
 import API from "./API";
-import type { ArgumentType } from "./Actiondump";
+import { ArgumentTypes as DumpArgumentTypes } from "./Actiondump";
 
 export const api = new API();
 
@@ -41,13 +41,39 @@ export interface branchPart {
     true: snippet,
     false?: snippet,
     hasElse: boolean,
-    arguments: argument[]
-    
+    arguments: argument[]    
 }
 
-export interface argument {
-    type: ArgumentType
+export const ArgumentTypes = {...DumpArgumentTypes, CLIENT_VALUE: {
+    icon: "name_tag",
+    name: "Client Value"
+}} as const
+export type ArgumentType = keyof typeof ArgumentTypes;
+export type argument = text | num | bool | value | variable
+export interface arg {
+    type: ArgumentType,
+    value: any,
+}
+export interface text extends arg {
+    type: 'TEXT',
     value: string
+}
+export interface num extends arg {
+    type: 'NUMBER',
+    value: number
+}
+export interface bool extends arg {
+    type: 'BOOL',
+    value: boolean
+}
+export interface value extends arg {
+    type: 'CLIENT_VALUE',
+    value: string
+}
+export interface variable extends arg {
+    type: 'VARIABLE',
+    value: string,
+    scope: "SCRIPT" // idk the other ones yet
 }
 
 export default async function getScript(Astro: AstroGlobal, id: string) {

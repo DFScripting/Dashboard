@@ -8,7 +8,7 @@
     export let script: APIScriptResponse;
     export let actiondump: APIActiondumpResponse;
 
-    let headers: Header[] = [];
+    let headers: (Header|null)[] = [];
     let area: HTMLSpanElement;
 
     console.log(script);
@@ -24,11 +24,12 @@
         if(e.dataTransfer?.getData("x-dfscript-type") == "event") {
             let i = 0;
             headers.forEach(x => {
-                if(x.getRegion().x + x.getRegion().width / 2 < e.clientX) {
+                if(x == null) return;
+                const region = x.getRegion();
+                if(region.x + region.width / 2 < e.clientX) {
                     i++;
                 }
-            })
-            console.log(i);
+            });
             script.headers.splice(i,0,{
                 event: e.dataTransfer.getData("x-dfscript-identifier"),
                 snippet: {

@@ -1,6 +1,7 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
     import type { APIActiondumpResponse, Action, Event } from "../../api/Actiondump";
+    import { sideData } from "./Utility"
 
     export let actiondump: APIActiondumpResponse;
 
@@ -27,10 +28,7 @@
                 <p class="text-zinc-400 uppercase font-bold text-xs">EVENTS</p>
                 {#each actiondump.events as event}
                 {#if event.name.toLowerCase().includes(query.toLowerCase())}
-                    <span class="entryrow text-zinc-200 truncate" draggable=true on:dragstart={e => {
-                        e.dataTransfer?.setData("x-dfscript-type","event")
-                        e.dataTransfer?.setData("x-dfscript-identifier",event.identifier)
-                    }}>
+                    <span class="entryrow text-zinc-200 truncate" draggable=true on:dragstart={sideData('event',event.identifier)}>
                         <img on:dragstart|preventDefault src={`/item/${event.icon.toUpperCase()}.png`} alt=""> {event.name}
                     </span>
                 {/if}
@@ -40,10 +38,9 @@
                 <p class="text-zinc-400 uppercase font-bold text-xs">ACTIONS</p>
                 {#each actiondump.actions as action}
                 {#if action.name.toLowerCase().includes(query.toLowerCase()) && !action.name.toLowerCase().includes("old")}
-                    <span class="entryrow text-zinc-200 truncate" draggable="true" on:dragstart={e => {
-                        e.dataTransfer?.setData("x-dfscript-type","action")
-                        e.dataTransfer?.setData("x-dfscript-identifier",action.identifier)
-                    }}><img on:dragstart|preventDefault src={`/item/${action.icon.toUpperCase()}.png`} alt=""> {action.name}</span>
+                    <span class="entryrow text-zinc-200 truncate" draggable="true" on:dragstart={sideData('action',action.identifier)}>
+                        <img on:dragstart|preventDefault src={`/item/${action.icon.toUpperCase()}.png`} alt=""> {action.name}
+                    </span>
                 {/if}
                 {/each}
             </div>
@@ -51,10 +48,9 @@
                 <p class="text-zinc-400 uppercase font-bold text-xs">CLIENT VALUES</p>
                 {#each actiondump.client_values as value}
                 {#if value.name.toLowerCase().includes(query.toLowerCase()) && !value.name.toLowerCase().includes("old")}
-                    <span class="entryrow text-zinc-200 truncate" draggable="true" on:dragstart={e => {
-                        e.dataTransfer?.setData("x-dfscript-type","value")
-                        e.dataTransfer?.setData("x-dfscript-identifier",value.identifier)
-                    }}><img on:dragstart|preventDefault src={`/item/${value.icon.toUpperCase()}.png`} alt=""> {value.name}</span>
+                    <span class="entryrow text-zinc-200 truncate" draggable="true" on:dragstart={sideData('value',value.identifier)}>
+                        <img on:dragstart|preventDefault src={`/item/${value.icon.toUpperCase()}.png`} alt=""> {value.name}
+                    </span>
                 {/if}
                 {/each}
             </div>
@@ -62,10 +58,9 @@
                 <p class="text-zinc-400 uppercase font-bold text-xs">CONDITIONS</p>
                 {#each actiondump.conditions as condition}
                 {#if condition.name.toLowerCase().includes(query.toLowerCase()) && !condition.name.toLowerCase().includes("old")}
-                    <span class="entryrow text-zinc-200 truncate" draggable="true" on:dragstart={e => {
-                        e.dataTransfer?.setData("x-dfscript-type","condition")
-                        e.dataTransfer?.setData("x-dfscript-identifier",condition.identifier)
-                    }}><img on:dragstart|preventDefault src={`/item/${condition.icon.toUpperCase()}.png`} alt=""> {condition.name}</span>
+                    <span class="entryrow text-zinc-200 truncate" draggable="true" on:dragstart={sideData('condition',condition.identifier)}>
+                        <img on:dragstart|preventDefault src={`/item/${condition.icon.toUpperCase()}.png`} alt=""> {condition.name}
+                    </span>
                 {/if}
                 {/each}
             </div>

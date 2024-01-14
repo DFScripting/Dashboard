@@ -1,17 +1,20 @@
 <script lang="ts">
-    import { type Argument, ArgumentTypes } from "../../api/Actiondump";
-    import type { argument } from "../../api/Script";
+    import { createEventDispatcher } from "svelte";
+    import { type Argument } from "../../api/Actiondump";
+    import { type argument, ArgumentTypes } from "../../api/Script";
 
-    export let argument: Argument;
-    export let value: argument|undefined = undefined;
+    export let argument: argument;
+    const type = ArgumentTypes[argument.type];
+
+    const dispatcher = createEventDispatcher<{delete:undefined}>();
 
     let input: HTMLInputElement;
 </script>
 
 <div class:argument class={argument.type.toLowerCase()}>
-    <img class="type" src={`/item/${argument.type_icon.toUpperCase()}.png`} alt={argument.type_name} title={`[${argument.type_name}] ${argument.name}` }>
+    <img class="type" src={`/item/${type.icon.toUpperCase()}.png`} alt={type.name} title={type.name}>
     <div class="content">
-        {#if value == undefined}
+        <!-- {#if value == undefined}
             <button title="Use Variable" class="add" on:click={() => {
                 value = {
                     type: 'VARIABLE',
@@ -25,41 +28,37 @@
                 value = {type:argument.type,value:''}
             }}><img src={`/item/${argument.type_icon.toUpperCase()}.png`} alt={argument.type_name}></button>
         {/if}
-        {:else}
-            {#if value.type == 'TEXT' || value.type == 'VARIABLE'}
+        {:else} -->
+            {#if argument.type == 'TEXT' || argument.type == 'VARIABLE'}
                 <!-- {#if value.type == 'VARIABLE'}
                     <select>
                         <option value="SCRIPT">Script</option>
                     </select>
                 {/if} -->
-                <input bind:this={input} type="text">
+                <input bind:this={input} bind:value={argument.value} type="text">
             {/if}
-            {#if value.type == 'NUMBER'}
-                <input bind:this={input} type="number">
+            {#if argument.type == 'NUMBER'}
+                <input bind:this={input} bind:value={argument.value} type="number">
             {/if}
-        {/if}
+            {#if argument.type == 'BOOL'}
+                <input bind:this={input} bind:checked={argument.value} type="checkbox" />
+            {/if}
+        <!-- {/if} -->
     </div>
+    <button class="delete" on:click={() => dispatcher('delete')}>X</button>
 </div>
 
 <style>
     .argument {
         display: flex;
-        gap: 0.2em;
+        height: 1.7em;
     }
-
-    /* .any {}
-    .number {}
-    .text {}
-    .list {}
-    .dictionary {}
-    .bool {}
-    .variable {} */
-
     .content {
         padding: 0.2em;
         font-size: 90%;
         background-color: white;
-        height: 1.9em;
+        outline: 1px solid black;
+        display: flex;
     }
 
     img.type {
@@ -67,17 +66,10 @@
         margin-block: auto;
     }
     img {
-        height: 1.5em;
-    }
-
-    .text {
-        border-radius: 5em;
-    }
-
-    .add {
-        width: 1.5em;
-        border-radius: 100%;
-        background-color: #ccc;
+        height: 100%;
+        padding-inline: 0.1em;
+        background-color: #fff;
+        border-radius: 50% 0 0 50%;
         outline: 1px solid black;
     }
 
@@ -91,5 +83,12 @@
     input:focus {
         outline: none !important;
         box-shadow: none !important;
+    }
+
+    .delete {
+        background-color: #fff;
+        width: 1.5em;
+        border-radius: 0 50% 50% 0;
+        outline: 1px solid black;
     }
 </style>

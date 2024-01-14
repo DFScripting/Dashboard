@@ -1,6 +1,6 @@
 import type { part } from "../../api/Script"
 
-export function getNewPart(type: string, identifier: string): part {
+export function getNewPart(type: 'action' | 'condition', identifier: string): part {
     if(type == 'action') {
         return {type: 'action', action: identifier, arguments: []}
     }
@@ -10,9 +10,16 @@ export function getNewPart(type: string, identifier: string): part {
     return undefined as any as part
 }
 
-export type DragType = 'event' | 'action' | 'condition'
+export type DragType = 'event' | 'action' | 'condition' | 'value'
 export function parseSidebarDrag(data?: DataTransfer|null) {
     const type = data!.getData("x-dfscript-type") as DragType
     const id = data!.getData('x-dfscript-identifier') as string
     return {type,id};
+}
+export function sideData(type: DragType, identifer: string) {
+    return function(event: DragEvent) {
+        const data = event.dataTransfer!;
+        data.setData("x-dfscript-type",type);
+        data.setData('x-dfscript-identifier',identifer);
+    }
 }

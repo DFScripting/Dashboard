@@ -8,23 +8,28 @@
 
     export let actiondump: APIActiondumpResponse;
 
-    let parts: Part[] = []
+    let parts: (Part|null)[] = []
 </script>
 
-<div class="snippet" on:dragover={e => {
+<div class="snippet" on:dragover|stopPropagation={e => {
     const {type} = parseSidebarDrag(e.dataTransfer);
     if(type == 'action' || type == 'condition') {
         e.preventDefault();
     }
-}} on:drop={e => {
+}} on:drop|stopPropagation={e => {
     const {type,id} = parseSidebarDrag(e.dataTransfer);
     if(type == 'action' || type == 'condition') {
         const add = getNewPart(type,id);
         let i = 0;
-        for (const part of parts) {
-            if(e.clientY > part.getRegion().bottom) break;
-            // TODO: gonna leave this code here, this is for getting the index to insert into. checking if the mouse is below the boundry of each child
-        }
+        parts.forEach(x => {
+            if(x == null) return;
+            const region = x.getRegion();
+            if(region.y + region.height / 2 < e.clientY) {
+                i++;
+            }
+        });
+        snippet.parts.splice(i,0,add);
+        snippet.parts = snippet.parts;
     }
 }}>
     {#each snippet.parts as part,i (part)}
