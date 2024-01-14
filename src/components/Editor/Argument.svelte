@@ -1,12 +1,16 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
-    import { type Argument } from "../../api/Actiondump";
+    import type { Argument, APIActiondumpResponse } from "../../api/Actiondump";
     import { type argument, ArgumentTypes } from "../../api/Script";
 
     export let argument: argument;
+    export let actiondump: APIActiondumpResponse|undefined = undefined;
+
     const type = ArgumentTypes[argument.type];
 
     const dispatcher = createEventDispatcher<{delete:undefined}>();
+
+    let client_value = actiondump?.client_values?.find(cv => cv.identifier == argument.value);
 
     let input: HTMLInputElement;
 </script>
@@ -42,6 +46,9 @@
             {/if}
             {#if argument.type == 'BOOL'}
                 <input bind:this={input} bind:checked={argument.value} type="checkbox" />
+            {/if}
+            {#if argument.type == 'CLIENT_VALUE'}
+                <span>{client_value?.name ?? argument.value}</span>
             {/if}
         <!-- {/if} -->
     </div>
@@ -83,6 +90,14 @@
     input:focus {
         outline: none !important;
         box-shadow: none !important;
+    }
+    input[type=checkbox] {
+        background-color: #f00;
+        height: 100%;
+    }
+    input[type=checkbox]:checked {
+        background-color: #0f0;
+        height: 100%;
     }
 
     .delete {

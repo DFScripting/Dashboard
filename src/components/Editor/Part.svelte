@@ -39,7 +39,7 @@
             <span>
                 {dump_part?.name ?? part.action}
             </span>
-            <Arguments bind:script={part.arguments} />
+            <Arguments bind:args={part.arguments} actiondump={actiondump} />
         </div>
     {:else if part.type == 'branch'}
     <div class="row">
@@ -47,7 +47,7 @@
         <span>
             {dump_part?.name ?? part.condition.condition}
         </span>
-        <Arguments bind:script={part.arguments} />
+        <Arguments bind:args={part.arguments} actiondump={actiondump} />
     </div>
         <div class="container" on:dragover|stopPropagation={e => {
             const {type} = parseSidebarDrag(e.dataTransfer);

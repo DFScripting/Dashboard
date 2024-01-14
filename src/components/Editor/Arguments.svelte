@@ -3,16 +3,14 @@
     import type { argument } from "../../api/Script";
     import ArgumentComp from "./Argument.svelte";
     import ContextMenu from "./ContextMenu.svelte";
-    import { parseSidebarDrag } from "./Utility"
+    import { parseSidebarDrag } from "./Utility";
+    import type { APIActiondumpResponse } from "../../api/Actiondump";
 
     /**
      * The real arguments found in the script
      */
-    export let script : argument[]
-    /**
-     * The argument infomation found in the actiondump.AS
-     */
-    export let dump : Argument[]|undefined = undefined;
+    export let args : argument[]
+    export let actiondump: APIActiondumpResponse|undefined = undefined;
 
     let ctx: ContextMenu;
     function add(type: ArgumentType) {
@@ -30,7 +28,7 @@
                     default: throw new TypeError('Cannot create stock value for type ' + type);
                 }
             }
-            script = [...script, stock(type)];
+            args = [...args, stock(type)];
         }
     }
 
@@ -39,11 +37,11 @@
 
 <div class="panel">
     <span class="args">
-        {#each script as arg, i (arg)}
+        {#each args as arg, i (arg)}
             <ArgumentComp bind:argument={arg} on:delete={() => {
-                script.splice(i,1);
-                script = script;
-            }} />
+                args.splice(i,1);
+                args = args;
+            }} actiondump={actiondump} />
         {/each}
     </span>
     <button on:click={ctx.open} on:dragover={e => {
@@ -54,6 +52,8 @@
     }} on:drop={e => {
         const {type,id} = parseSidebarDrag(e.dataTransfer);
         if(type != 'value') return;
+        args = [...args, {type: 'CLIENT_VALUE', value: id}];
+        
     }} class="add" class:attention>+</button>
 </div>
 <ContextMenu bind:this={ctx}>
