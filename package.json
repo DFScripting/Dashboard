@@ -28,7 +28,7 @@
     "flowbite": "^2.2.1",
     "jsdom": "^23.2.0",
     "link-preview-js": "^3.0.4",
-    "svelte": "^4.2.8",
+    "svelte": "^4.2.10",
     "svelte-loading-spinners": "^0.3.4",
     "tailwindcss": "^3.4.1",
     "yarn": "^1.22.21"
