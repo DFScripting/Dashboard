@@ -5,6 +5,8 @@
 
     export let actiondump: APIActiondumpResponse;
 
+    export let save: () => void
+
     let open = true
 
     let query = "";
@@ -21,6 +23,8 @@
             <a href="#conditions">Conditions</a>
             <a href="#variables">Variables</a>
             <a href="#functions">Functions</a>
+            <div style="height: 100%;"></div>
+            <button class="mr-4 p-2 bg-sky-600 rounded-lg" on:click={save}>Save</button>
         </div>
 
         <div class="grid gap-3 overflow-x-hidden overflow-y-scroll scrollbar-none">

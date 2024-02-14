@@ -19,6 +19,9 @@ const userData = await getUserCheck(Astro);
 const script = await getScript(Astro, scriptId);
 const actiondump = await getActiondump(Astro);
 
+if(API.didError(script)) {
+    console.error(script.error);
+}
 ---
 
 <Layout title="Script Editor" user={userData}>
@@ -35,7 +38,7 @@ const actiondump = await getActiondump(Astro);
 	
     <main>
         {() => {
-            if(API.didError(script)) return <div class="error">An error occurred whilst loading your script</div>
+            if(API.didError(script)) return <div class="error">An error occurred whilst loading your script:<br>{script.error}</div>
             else return <Editor script={script} actiondump={actiondump} client:only />
         }}
     </main>
@@ -51,5 +54,7 @@ const actiondump = await getActiondump(Astro);
 
     .error {
         margin: auto;
+        color: white;
+        text-align: center;
     }
 </style>

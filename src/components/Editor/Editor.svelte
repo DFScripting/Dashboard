@@ -3,7 +3,6 @@
     import type { APIActiondumpResponse } from "../../api/Actiondump"
     import Sidebar from "./Sidebar.svelte";
     import Header from "./Header.svelte";
-    import Snippet from "./Snippet.svelte";
     
     export let script: APIScriptResponse;
     export let actiondump: APIActiondumpResponse;
@@ -11,11 +10,15 @@
     let headers: (Header|null)[] = [];
     let area: HTMLSpanElement;
 
+    export function save() {
+        console.log(script);
+    }
+
     console.log(script);
 </script>
 
 <span class="flex w-full h-full" on:contextmenu|preventDefault>
-    <Sidebar actiondump={actiondump} />
+    <Sidebar actiondump={actiondump} save={save} />
     <span bind:this={area} class="area" on:dragover={e => {
         if(e.dataTransfer?.getData("x-dfscript-type") == "event") {
             e.preventDefault();
