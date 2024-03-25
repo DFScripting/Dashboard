@@ -11,10 +11,22 @@
     let area: HTMLSpanElement;
 
     export function save() {
-        console.log(script);
-    }
+        console.log(script.headers)
+        const parts = document.cookie.split(`; access_token=`);
+        if (parts.length != 2) return;
 
-    console.log(script);
+        let header = new Headers();
+        header.append('X-Token', parts[1].split(";")[0]);
+        header.append('X-Id', String(script.id));
+        header.append('X-Headers', encodeURIComponent(JSON.stringify(script.headers)));
+
+        fetch('https://api.techstreet.tech/dfscript/web/script/save/', {
+		    headers: header
+        }).then(res => {
+            location.href = "/"
+        });
+
+    }
 </script>
 
 <span class="flex w-full h-full" on:contextmenu|preventDefault>
