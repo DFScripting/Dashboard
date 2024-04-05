@@ -24,7 +24,7 @@
     "@astrojs/svelte": "^3.1.1",
     "@tailwindcss/typography": "^0.5.9",
     "change-case": "^5.4.1",
-    "daisyui": "^4.6.0",
+    "daisyui": "^4.10.1",
     "flowbite": "^2.2.1",
     "jsdom": "^23.2.0",
     "link-preview-js": "^3.0.4",
